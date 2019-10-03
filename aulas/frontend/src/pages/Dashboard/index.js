@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
+//componente Link serve para ligar as rotas
+import {Link} from 'react-router-dom';
 import api from '../../services/api'
+
+import './styles.css';
 //o componente eh criado em forma de funcao
 export default function Dashboard() {
   const [spots, setSpots] = useState([]);
@@ -16,17 +20,24 @@ export default function Dashboard() {
     loadSpots()
   }, [])
   //elemento sem 'tipo' eh um fragment <></>
+  //no react aol fazer uma iteracao em um loop eh necessario informar o key
+  //onde deve ser um valor unico na lista
   return (
     <>
       <ul className="spot-list">
         {spots.map(spot => (
           <li key={spot._id}>
-            <header />
+            <header style={{backgroundImage : `url(${spot.thumbnail_url})`}}/>
             <strong>{spot.company}</strong>
-            <span>{spot.price}</span>
+            <span>{spot.price ? `R$${spot.price}/dia`:'Gratuito'}</span>
           </li>
         ))}
       </ul>
+      <Link to="/new">
+        <button className="btn">
+        Cadastrar novo spot
+        </button>
+        </Link>
     </>
   )
 }

@@ -10,6 +10,8 @@ module.exports = {
     //soh cria o usuario se nao existir no banco
     if (!user) user = await User.create({ email });
 
+    console.log(user);
+
     return res.json(user);
   }
 };

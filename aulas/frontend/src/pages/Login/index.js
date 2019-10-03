@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 
 //o componente eh criado em forma de funcao
-export default function Login() {
+export default function Login({history}) {
 
   //state eh utilizado para guardar qq tipo de info do componente
   const [email, setEmail] = useState('');
@@ -19,8 +19,10 @@ export default function Login() {
 
     const response = await api.post('/sessions', { email });
     const { _id } = response.data;
-
+    //armazena no cache do navegador
     localStorage.setItem('user', _id);
+    //muda a rota
+    history.push('/dashboard')
 
   }
 
