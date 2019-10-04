@@ -24,6 +24,10 @@ export default function Dashboard() {
       //console.log(data);
       setRequests([...requests,data]);
     })
+    //funcao para desconectar o socket qdo o componente for desmontado
+    return ()=>{
+      socket.close();
+    }
 
   },[requests,socket])
 
