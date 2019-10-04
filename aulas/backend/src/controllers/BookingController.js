@@ -16,6 +16,15 @@ module.exports = {
       .populate("user")
       .execPopulate();
 
+    //verifica se o dono do spot estah conectado tb
+    const ownerSocket = req.connectedUsers[booking.spot.user];
+
+    if (ownerSocket) {
+      //recupera a conexao do socket
+      //e envia a mensagem para o owner
+      req.io.to(ownerSocket).emit("booking_request", booking);
+    }
+
     return res.json(booking);
   }
 };
